@@ -11,7 +11,7 @@ class Artist(models.Model):
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    record_label = models.ForeignKey(RecordLabel, null=False, on_delete=models.CASCADE)
+    record_label = models.ForeignKey(RecordLabel, null=False, on_delete=models.CASCADE, related_name='10')
     password = models.CharField(max_length=30)
 
     about = models.TextField()
@@ -36,14 +36,14 @@ class Artist(models.Model):
 
 
 class ArtistPhotos(models.Model):
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='7')
     photo = models.FileField()
     date_added = models.DateField(auto_now_add=True)
 
 
 class Followers(models.Model):
-    followed_by = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    artist = models.ForeignKey(to=Artist, on_delete=models.CASCADE)
+    followed_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='8')
+    artist = models.ForeignKey(to=Artist, on_delete=models.CASCADE, related_name='9')
 
     class Meta:
         unique_together = ("artist", "followed_by")

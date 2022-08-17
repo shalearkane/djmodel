@@ -6,7 +6,7 @@ from .user import User
 
 
 class Track(models.Model):
-    album = models.ForeignKey(Album, related_name="track", on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, related_name="track", on_delete=models.CASCADE, related_name='16')
     title = models.CharField(max_length=250)
     audio_file = models.FileField(upload_to="track", default=settings.MEDIA_ROOT + "/track/track.mp3")
     liked_by = models.ManyToManyField(User, through="TrackLikes")
@@ -24,8 +24,8 @@ class Track(models.Model):
 
 
 class TrackLikes(models.Model):
-    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    track = models.ForeignKey(to=Track, on_delete=models.CASCADE)
+    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='17')
+    track = models.ForeignKey(to=Track, on_delete=models.CASCADE, related_name='18')
 
     class Meta:
         unique_together = ("track", "liked_by")

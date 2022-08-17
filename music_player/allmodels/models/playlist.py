@@ -7,8 +7,8 @@ from .user import User
 
 class Playlist(models.Model):
     name = models.CharField(max_length=50)
-    created_by_artist = models.ForeignKey(to=Artist, null=True, on_delete=models.CASCADE)
-    created_by_user = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE)
+    created_by_artist = models.ForeignKey(to=Artist, null=True, on_delete=models.CASCADE, related_name='19')
+    created_by_user = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE, related_name='20')
     description = models.TextField()
     liked_by = models.ManyToManyField(User, through="PlaylistLikes")
     type = models.CharField(
@@ -22,22 +22,22 @@ class Playlist(models.Model):
 
 
 class PlaylistLikes(models.Model):
-    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE)
+    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='21')
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name='22')
 
 
 class PlaylistContent(models.Model):
-    track = models.ForeignKey(to=Track, on_delete=models.CASCADE)
-    added_by = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE)
-    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE)
+    track = models.ForeignKey(to=Track, on_delete=models.CASCADE, related_name='23')
+    added_by = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE, related_name='24')
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name='25')
 
     class Meta:
         unique_together = ("track", "added_by")
 
 
 class PlaylistParticipants(models.Model):
-    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE)
-    participant = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name='26')
+    participant = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='27')
 
     class Meta:
         unique_together = ("playlist", "participant")
