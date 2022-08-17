@@ -5,6 +5,9 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
+from .artist import Artist
+from .user import User
+
 
 class ArtistManager(BaseUserManager):
     def create_user(self, username, email, password=None):
@@ -44,3 +47,11 @@ class Artist(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.username.split()[0]
+
+
+class Followers(models.Model):
+    followed_by = models.ForeignKey(to=User)
+    artist = models.ForeignKey(to=Artist)
+
+    class Meta:
+        unique_together = ("artist", "followed_by")
