@@ -17,8 +17,8 @@ class Genre(models.Model):
 
 
 class Album(models.Model):
-    artist = models.ForeignKey(Artist, related_name="album_artist", on_delete=models.CASCADE, related_name='1')  # cascade
-    genre = models.ForeignKey(Genre, related_name="album_genre", on_delete=models.CASCADE, related_name='2')
+    artist = models.ForeignKey(Artist, related_name="album_artist", on_delete=models.CASCADE)  # cascade
+    genre = models.ForeignKey(Genre, related_name="album_genre", on_delete=models.CASCADE)
     album_title = models.CharField(max_length=50)
     album_logo = models.FileField(upload_to="album", default=settings.MEDIA_ROOT + "/album_art/default.png")
     liked_by = models.ManyToManyField(User, through="AlbumLikes")
@@ -28,8 +28,8 @@ class Album(models.Model):
 
 
 class AlbumReleaseInfo(models.Model):
-    album = models.ForeignKey(Album, null=False, blank=False, on_delete=models.CASCADE, related_name='3')
-    country = models.ForeignKey(Country, null=False, blank=False, on_delete=models.CASCADE, related_name='4')
+    album = models.ForeignKey(Album, null=False, blank=False, on_delete=models.CASCADE, related_name='related3')
+    country = models.ForeignKey(Country, null=False, blank=False, on_delete=models.CASCADE, related_name='related4')
     date = models.DateField()
 
     class Meta:
@@ -37,8 +37,8 @@ class AlbumReleaseInfo(models.Model):
 
 
 class AlbumLikes(models.Model):
-    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='5')
-    album = models.ForeignKey(to=Album, on_delete=models.CASCADE, related_name='6')
+    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='related5')
+    album = models.ForeignKey(to=Album, on_delete=models.CASCADE, related_name='related6')
 
     class Meta:
         unique_together = ("album", "liked_by")
