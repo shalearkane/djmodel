@@ -5,7 +5,7 @@ from .artist import Artist
 
 
 class Event(models.Model):
-    artist = models.ForeignKey(to=Artist)
+    artist = models.ForeignKey(to=Artist, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
     venue = models.CharField()

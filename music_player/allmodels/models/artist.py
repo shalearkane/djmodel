@@ -31,7 +31,7 @@ class Artist(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    record_label = models.ForeignKey(RecordLabel, null=False)
+    record_label = models.ForeignKey(RecordLabel, null=False, on_delete=models.CASCADE)
 
     about = models.TextField()
     twitter = models.URLField()
@@ -56,14 +56,14 @@ class Artist(AbstractBaseUser, PermissionsMixin):
 
 
 class ArtistPhotos(models.Model):
-    artist = models.ForeignKey(Artist)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     photo = models.FileField()
     date_added = models.DateField(auto_now_add=True)
 
 
 class Followers(models.Model):
-    followed_by = models.ForeignKey(to=User)
-    artist = models.ForeignKey(to=Artist)
+    followed_by = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    artist = models.ForeignKey(to=Artist, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("artist", "followed_by")

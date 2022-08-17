@@ -7,8 +7,8 @@ from .user import User
 
 class Playlist(models.Model):
     name = models.CharField(max_length=50)
-    created_by_artist = models.ForeignKey(to=Artist, null=True)
-    created_by_user = models.ForeignKey(to=User, null=True)
+    created_by_artist = models.ForeignKey(to=Artist, null=True, on_delete=models.CASCADE)
+    created_by_user = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE)
     description = models.CharField(max_length=5000)
     liked_by = models.ManyToManyField(User, through="PlaylistLikes")
     type = models.CharField(
@@ -22,22 +22,22 @@ class Playlist(models.Model):
 
 
 class PlaylistLikes(models.Model):
-    liked_by = models.ForeignKey(to=User)
-    playlist = models.ForeignKey(to=Playlist)
+    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE)
 
 
 class PlaylistContent(models.Model):
-    track = models.ForeignKey(to=Track)
-    added_by = models.ForeignKey(to=User, null=True)
-    playlist = models.ForeignKey(to=Playlist)
+    track = models.ForeignKey(to=Track, on_delete=models.CASCADE)
+    added_by = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE)
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("track", "added_by")
 
 
 class PlaylistParticipants(models.Model):
-    playlist = models.ForeignKey(to=Playlist)
-    participant = models.ForeignKey(to=User)
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE)
+    participant = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("playlist", "participant")
