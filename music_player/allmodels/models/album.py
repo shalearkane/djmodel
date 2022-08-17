@@ -2,10 +2,13 @@ from django.conf import settings
 from django.db import models
 from django.db.models.deletion import SET
 
-from .album import Album
 from .artist import Artist
 from .models import Genre
 from .user import User
+
+
+class Country(models.Model):
+    name = models.CharField(unique=True)
 
 
 class Album(models.Model):
@@ -17,6 +20,15 @@ class Album(models.Model):
 
     def __str__(self) -> str:
         return self.album_title + " - " + self.artist.name
+
+
+class AlbumReleaseInfo(models.Model):
+    album = models.ForeignKey(Album, null=False, blank=False)
+    country = models.ForeignKey(Country, null=False, blank=False)
+    date = models.DateField()
+
+    class Meta:
+        unique_together = ("album", "country")
 
 
 class AlbumLikes(models.Model):

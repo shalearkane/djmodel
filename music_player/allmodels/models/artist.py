@@ -5,6 +5,7 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
+from .record_label import RecordLabel
 from .user import User
 
 
@@ -30,6 +31,12 @@ class Artist(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    record_label = models.ForeignKey(RecordLabel, null=False)
+
+    about = models.TextField()
+    twitter = models.URLField()
+    facebook = models.URLField()
+    instagram = models.URLField()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
@@ -46,6 +53,12 @@ class Artist(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.username.split()[0]
+
+
+class ArtistPhotos(models.Model):
+    artist = models.ForeignKey(Artist)
+    photo = models.FileField()
+    date_added = models.DateField(auto_now_add=True)
 
 
 class Followers(models.Model):
