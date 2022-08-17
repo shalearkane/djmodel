@@ -1,30 +1,10 @@
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    BaseUserManager,
-    PermissionsMixin,
-)
 from django.db import models
 
 from .record_label import RecordLabel
 from .user import User
 
 
-class ArtistManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
-        if username is None:
-            raise TypeError("Users must have a username")
-
-        if email is None:
-            raise TypeError("User must have an email address")
-
-        user = self.model(username=username, email=self.normalize_email(email))
-        user.set_password(password)
-        user.save()
-
-        return user
-
-
-class Artist(AbstractBaseUser, PermissionsMixin):
+class Artist(models.Model):
     username = models.CharField(db_index=True, max_length=255)
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
@@ -32,6 +12,7 @@ class Artist(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     record_label = models.ForeignKey(RecordLabel, null=False, on_delete=models.CASCADE)
+    password = models.CharField(max_length=30)
 
     about = models.TextField()
     twitter = models.URLField()
@@ -43,7 +24,6 @@ class Artist(AbstractBaseUser, PermissionsMixin):
 
     # Tells Django that the UserManager class defined above should manage
     # objects of this type.
-    objects = ArtistManager()
 
     def __str__(self) -> str:
         return self.email
