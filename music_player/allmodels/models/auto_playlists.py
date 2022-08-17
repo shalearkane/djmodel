@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 
-from .models import Track
+from .others import Track
 from .user import User
 
 

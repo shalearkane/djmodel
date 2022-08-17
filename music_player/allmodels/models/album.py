@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.deletion import SET
 
 from .artist import Artist
-from .models import Genre
+from .others import Genre
 from .user import User
 
 
