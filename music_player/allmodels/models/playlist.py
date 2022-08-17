@@ -2,7 +2,6 @@ from django.db import models
 
 from .artist import Artist
 from .models import Track
-from .playlist import Playlist
 from .user import User
 
 

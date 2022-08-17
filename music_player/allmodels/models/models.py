@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models.deletion import SET
 
 from .album import Album
-from .models import Track
 from .user import User
 
 
