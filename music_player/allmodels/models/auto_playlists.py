@@ -1,10 +1,9 @@
-from enum import unique
-from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.db.models.deletion import CASCADE, DO_NOTHING, SET
-from .user import User
+from django.db.models.deletion import CASCADE
+
 from .models import Track
+from .user import User
+
 
 class LikedSong(models.Model):
     user = models.ForeignKey(User, related_name="user_like", on_delete=CASCADE)

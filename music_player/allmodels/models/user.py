@@ -1,10 +1,9 @@
-from enum import unique
-from django.conf import settings
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.db.models.deletion import CASCADE, DO_NOTHING, SET
-from datetime import datetime, timedelta
-from django.contrib.auth.models import BaseUserManager
 
 
 class UserManager(BaseUserManager):
