@@ -1,10 +1,8 @@
-from enum import unique
-from django.conf import settings
 from django.db import models
-from .user import User
+
 from .album import Genre
 from .location import Country
-from django.db.models.deletion import CASCADE, DO_NOTHING, SET
+from .user import User
 
 
 class Podcast(models.Model):
