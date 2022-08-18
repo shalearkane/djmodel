@@ -7,8 +7,8 @@ from .user import User
 
 class Playlist(models.Model):
     name = models.CharField(max_length=50)
-    created_by_artist = models.ForeignKey(to=Artist, null=True, on_delete=models.CASCADE, related_name='related19')
-    created_by_user = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE, related_name='related20')
+    created_by_artist = models.ForeignKey(to=Artist, null=True, on_delete=models.CASCADE, related_name="related19")
+    created_by_user = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE, related_name="related20")
     description = models.TextField()
     liked_by = models.ManyToManyField(User, through="PlaylistLikes")
     type = models.CharField(
@@ -22,22 +22,22 @@ class Playlist(models.Model):
 
 
 class PlaylistLikes(models.Model):
-    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='hello')
-    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name='related22')
+    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="hello")
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name="related22")
 
 
 class PlaylistContent(models.Model):
-    track = models.ForeignKey(to=Track, on_delete=models.CASCADE, related_name='related23')
-    added_by = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE, related_name='related24')
-    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name='related25')
+    track = models.ForeignKey(to=Track, on_delete=models.CASCADE, related_name="related23")
+    added_by = models.ForeignKey(to=User, null=True, on_delete=models.CASCADE, related_name="related24")
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name="related25")
 
     class Meta:
         unique_together = ("track", "added_by")
 
 
 class PlaylistParticipants(models.Model):
-    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name='related26')
-    participant = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='related27')
+    playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name="related26")
+    participant = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="related27")
 
     class Meta:
         unique_together = ("playlist", "participant")

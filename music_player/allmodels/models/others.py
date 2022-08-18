@@ -24,8 +24,8 @@ class Track(models.Model):
 
 
 class TrackLikes(models.Model):
-    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='related17')
-    track = models.ForeignKey(to=Track, on_delete=models.CASCADE, related_name='related18')
+    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="related17")
+    track = models.ForeignKey(to=Track, on_delete=models.CASCADE, related_name="related18")
 
     class Meta:
         unique_together = ("track", "liked_by")

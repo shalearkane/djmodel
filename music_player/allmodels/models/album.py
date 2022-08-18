@@ -2,11 +2,8 @@ from django.conf import settings
 from django.db import models
 
 from .artist import Artist
+from .location import Country
 from .user import User
-
-
-class Country(models.Model):
-    name = models.CharField(unique=True, max_length=30)
 
 
 class Genre(models.Model):
@@ -28,8 +25,8 @@ class Album(models.Model):
 
 
 class AlbumReleaseInfo(models.Model):
-    album = models.ForeignKey(Album, null=False, blank=False, on_delete=models.CASCADE, related_name='related3')
-    country = models.ForeignKey(Country, null=False, blank=False, on_delete=models.CASCADE, related_name='related4')
+    album = models.ForeignKey(Album, null=False, blank=False, on_delete=models.CASCADE, related_name="related3")
+    country = models.ForeignKey(Country, null=False, blank=False, on_delete=models.CASCADE, related_name="related4")
     date = models.DateField()
 
     class Meta:
@@ -37,8 +34,8 @@ class AlbumReleaseInfo(models.Model):
 
 
 class AlbumLikes(models.Model):
-    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='related5')
-    album = models.ForeignKey(to=Album, on_delete=models.CASCADE, related_name='related6')
+    liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="related5")
+    album = models.ForeignKey(to=Album, on_delete=models.CASCADE, related_name="related6")
 
     class Meta:
         unique_together = ("album", "liked_by")

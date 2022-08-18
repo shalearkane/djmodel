@@ -1,5 +1,7 @@
 from django.db import models
 
+from .location import Country
+
 
 # Create your models here.
 class User(models.Model):
@@ -10,6 +12,8 @@ class User(models.Model):
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    nationality = models.ForeignKey(Country, null=False, on_delete=models.CASCADE, related_name="related40")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
