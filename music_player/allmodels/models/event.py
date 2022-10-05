@@ -14,3 +14,6 @@ class Event(models.Model):
     event_poster = models.FileField(upload_to="album", default=settings.MEDIA_ROOT + "/event_poster/default.png")
 
     country = models.ForeignKey(Country, null=False, on_delete=models.CASCADE, related_name="related41")
+
+    class Meta:
+        db_table = "Event"

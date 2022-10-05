@@ -2,7 +2,7 @@ from django.db import models
 
 from .album import Genre
 from .location import Country
-from .user import User
+from .not_req_user import User
 
 
 class Podcast(models.Model):
@@ -17,12 +17,17 @@ class Podcast(models.Model):
         return self.host + " - " + self.host
 
 
+    class Meta:
+        db_table = "Podcast"
+
+
 class PoscastBookmarks(models.Model):
     liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="related101")
     podcast = models.ForeignKey(to=Podcast, on_delete=models.CASCADE, related_name="related102")
 
     class Meta:
         unique_together = ("podcast", "liked_by")
+        db_table = "PodcastBookmarks"
 
 
 class PodcastReleaseInfo(models.Model):
@@ -33,3 +38,4 @@ class PodcastReleaseInfo(models.Model):
 
     class Meta:
         unique_together = ("podcast", "country")
+        db_table = "PodcastReleaseInfo"

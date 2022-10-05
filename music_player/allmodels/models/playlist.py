@@ -2,7 +2,7 @@ from django.db import models
 
 from .artist import Artist
 from .others import Track
-from .user import User
+from .not_req_user import User
 
 
 class Playlist(models.Model):
@@ -21,10 +21,17 @@ class Playlist(models.Model):
     )
 
 
+    class Meta:
+        db_table = "Playlist"
+
+
 class PlaylistLikes(models.Model):
     liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="hello")
     playlist = models.ForeignKey(to=Playlist, on_delete=models.CASCADE, related_name="related22")
 
+
+    class Meta:
+        db_table = "PlaylistLikes"
 
 class PlaylistContent(models.Model):
     track = models.ForeignKey(to=Track, on_delete=models.CASCADE, related_name="related23")
@@ -33,6 +40,7 @@ class PlaylistContent(models.Model):
 
     class Meta:
         unique_together = ("track", "added_by")
+        db_table = "PlaylistContent"
 
 
 class PlaylistParticipants(models.Model):
@@ -41,3 +49,4 @@ class PlaylistParticipants(models.Model):
 
     class Meta:
         unique_together = ("playlist", "participant")
+        db_table = "PlaylistParticipation"

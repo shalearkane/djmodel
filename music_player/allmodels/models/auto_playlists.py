@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 
 from .others import Track
-from .user import User
+from .not_req_user import User
 
 
 class LikedSong(models.Model):
@@ -12,6 +12,8 @@ class LikedSong(models.Model):
 
     class Meta:
         unique_together = ("user", "track")
+        db_table = "LikedSong"
+        
 
     def __str__(self) -> str:
         return self.user.username + " - " + self.track.track_title
@@ -24,3 +26,6 @@ class History(models.Model):
 
     def __str__(self) -> str:
         return self.user.username + " - " + self.track.track_title
+
+    class Meta:
+        db_table = "History"

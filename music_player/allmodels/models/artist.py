@@ -2,7 +2,7 @@ from django.db import models
 
 from .location import Country
 from .record_label import RecordLabel
-from .user import User
+from .not_req_user import User
 
 
 class Artist(models.Model):
@@ -37,11 +37,16 @@ class Artist(models.Model):
     def get_short_name(self):
         return self.username.split()[0]
 
+    class Meta:
+        db_table = "Artist"
+
 
 class ArtistPhotos(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="related7")
     photo = models.FileField()
     date_added = models.DateField(auto_now_add=True)
+    class Meta:
+        db_table = "ArtistPhotos"
 
 
 class Followers(models.Model):
@@ -50,3 +55,4 @@ class Followers(models.Model):
 
     class Meta:
         unique_together = ("artist", "followed_by")
+        db_table = "Followers"

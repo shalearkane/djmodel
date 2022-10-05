@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 
 from .album import Album
-from .user import User
+from .not_req_user import User
 
 
 class Track(models.Model):
@@ -23,9 +23,14 @@ class Track(models.Model):
         return self.track_title
 
 
+    class Meta:
+        db_table = "Track"
+
+
 class TrackLikes(models.Model):
     liked_by = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="related17")
     track = models.ForeignKey(to=Track, on_delete=models.CASCADE, related_name="related18")
 
     class Meta:
         unique_together = ("track", "liked_by")
+        db_table = "TrackLikes"

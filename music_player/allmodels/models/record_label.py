@@ -33,3 +33,6 @@ class RecordLabel(models.Model):
 
     def get_short_name(self):
         return self.username.split()[0]
+
+    class Meta:
+        db_table = "RecordLabel"

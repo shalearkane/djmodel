@@ -13,7 +13,7 @@ from .models.playlist import (
     PlaylistLikes,
     PlaylistParticipants,
 )
-from .models.user import User
+from .models.not_req_user import User
 
 admin.site.register(User)
 admin.site.register(Album)

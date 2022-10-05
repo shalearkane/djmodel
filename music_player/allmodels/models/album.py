@@ -3,7 +3,7 @@ from django.db import models
 
 from .artist import Artist
 from .location import Country
-from .user import User
+from .not_req_user import User
 
 
 class Genre(models.Model):
@@ -11,6 +11,8 @@ class Genre(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    class Meta:
+        db_table = "Genre"
 
 
 class Album(models.Model):
@@ -22,6 +24,8 @@ class Album(models.Model):
 
     def __str__(self) -> str:
         return self.album_title + " - " + self.artist.name
+    class Meta:
+        db_table = "Album"
 
 
 class AlbumReleaseInfo(models.Model):
@@ -31,6 +35,8 @@ class AlbumReleaseInfo(models.Model):
 
     class Meta:
         unique_together = ("album", "country")
+        db_table = "AlbumReleaseInfo"
+
 
 
 class AlbumLikes(models.Model):
@@ -39,3 +45,4 @@ class AlbumLikes(models.Model):
 
     class Meta:
         unique_together = ("album", "liked_by")
+        db_table = "AlbumLikes"
