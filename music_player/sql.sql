@@ -1,3 +1,23 @@
+DROP DATABASE NIRVANA;
+CREATE DATABASE NIRVANA;
+USE NIRVANA;
+
+CREATE TABLE NirvanaUsers (
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  enabled TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (username)
+);
+
+CREATE TABLE authorities (
+  username VARCHAR(50) NOT NULL,
+  authority VARCHAR(50) NOT NULL,
+  FOREIGN KEY (username) REFERENCES users(username)
+);
+
+CREATE UNIQUE INDEX ix_auth_username
+  on authorities (username,authority);
+
 --
 -- Create model Album
 --
@@ -17,7 +37,7 @@ CREATE TABLE `Genre` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` va
 --
 -- Create model Playlist
 --
-CREATE TABLE `Playlist` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(50) NOT NULL, `description` longtext NOT NULL, `type` varchar(4) NOT NULL, `visibility` varchar(4) NOT NULL, `created_by_artist_id` bigint NULL);
+CREATE TABLE `Playlist` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(50) NOT NULL, `description` longtext NOT NULL, `type` varcharvisibilityAlbumReleaseInfo(4) NOT NULL, `visibility` varchar(4) NOT NULL, `created_by_artist_id` bigint NULL);
 --
 -- Create model RecordLabel
 --
@@ -55,18 +75,7 @@ CREATE TABLE `PlaylistContent` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,
 --
 ALTER TABLE `Playlist` ADD COLUMN `created_by_user_id` bigint NULL , ADD CONSTRAINT `Playlist_created_by_user_id_fb2a2c4c_fk_allmodels_user_id` FOREIGN KEY (`created_by_user_id`) REFERENCES `allmodels_user`(`id`);
 --
--- Add field liked_by to playlist
---
--- (no-op)
---
--- Add field participant to playlist
---
--- (no-op)
---
--- Add field track to playlist
---
--- (no-op)
---
+
 -- Create model History
 --
 CREATE TABLE `History` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `time` datetime(6) NOT NULL, `track_id` bigint NOT NULL, `user_id` bigint NOT NULL);
@@ -100,8 +109,6 @@ ALTER TABLE `Album` ADD COLUMN `artist_id` bigint NOT NULL , ADD CONSTRAINT `Alb
 ALTER TABLE `Album` ADD COLUMN `genre_id` bigint NOT NULL , ADD CONSTRAINT `Album_genre_id_f15df300_fk_Genre_id` FOREIGN KEY (`genre_id`) REFERENCES `Genre`(`id`);
 --
 -- Add field liked_by to album
---
--- (no-op)
 --
 -- Create model LikedSong
 --
