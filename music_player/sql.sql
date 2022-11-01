@@ -9,10 +9,10 @@ CREATE TABLE NirvanaUsers (
   PRIMARY KEY (username)
 );
 
-CREATE TABLE authorities (
+CREATE TABLE Authorities (
   username VARCHAR(50) NOT NULL,
   authority VARCHAR(50) NOT NULL,
-  FOREIGN KEY (username) REFERENCES users(username)
+  FOREIGN KEY (username) REFERENCES NirvanaUsers(username)
 );
 
 CREATE UNIQUE INDEX ix_auth_username
@@ -37,7 +37,7 @@ CREATE TABLE `Genre` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` va
 --
 -- Create model Playlist
 --
-CREATE TABLE `Playlist` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(50) NOT NULL, `description` longtext NOT NULL, `type` varcharvisibilityAlbumReleaseInfo(4) NOT NULL, `visibility` varchar(4) NOT NULL, `created_by_artist_id` bigint NULL);
+CREATE TABLE `Playlist` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(50) NOT NULL, `description` longtext NOT NULL, `type` varchar(10) NOT NULL, `visibility` varchar(4) NOT NULL, `created_by_artist_id` bigint NULL);
 --
 -- Create model RecordLabel
 --
